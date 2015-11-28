@@ -10,15 +10,18 @@ function PlayerService() {
         },
         play: function (url) {
 
-            var video = document.getElementById("player");
-            video.hidden = false;
-
             var player = global.player;
+            var video = document.getElementById("player");
+            var view = document.querySelector("[ng-viewport]");
+
             if (player.playing())
                 player.clearPlaylist();
 
             player.addPlaylist(url);
             player.play();
+
+            view.hidden = true;
+            video.hidden = false;
         }
     }
 }

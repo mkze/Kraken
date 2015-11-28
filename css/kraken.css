@@ -1,9 +1,13 @@
 ﻿
 
 html,
-body,
-.player {
+body {
     height:100%;
+}
+
+
+.player {
+    height: calc(100% - 64px);
 }
 
 .login {
@@ -35,15 +39,17 @@ body,
 }
 
 .player .wcp-toolbar {
+    background:transparent;
     height:30px;
 }
 
 .player .wcp-vol-control {
     top:0;
+    border-right:0;
 }
 
 .player .wcp-vol-bar-full {
-    background-color:#6917a1;
+    background-color:rgba(63, 81, 181, 1);
 }
 
 .player .wcp-button {

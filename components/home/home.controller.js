@@ -11,7 +11,6 @@ function HomeController($location, $http, $timeout, api, player) {
 
     this.user = {};
 
-    this.$player.createPlayer();
     this.checkAuth();
 }
 
@@ -56,6 +55,9 @@ HomeController.prototype.checkAuth = function () {
 
             //save user object to local storage
             localStorage.setItem("user", JSON.stringify(_this.user));
+
+            //create player
+            _this.$player.createPlayer();
 
             //redirect to streams
             _this.redirect();
