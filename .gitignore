@@ -1,0 +1,12 @@
+# VS solution files
+.vs/
+kraken.sln
+
+# node modules
+node_modules/
+
+# libraries
+lib/
+
+# misc
+launch.lnk

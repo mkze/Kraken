@@ -1,0 +1,68 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <base href="/" />
+    <title>Kraken</title>
+    <link rel="stylesheet" href="lib/css/angular-material.min.css" />
+    <link rel="stylesheet" href="lib/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/kraken.css" />
+</head>
+<body ng-app="kraken" ng-controller="AppController as app">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen">
+                <md-icon class="fa fa-bars fa-2x"></md-icon>
+            </md-button>
+            <span flex></span>
+            <span>{{app.user.display_name}}</span>
+        </div>
+    </md-toolbar>
+    <md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
+        <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="app.redirect('/index.html')">Kraken</md-button>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen">
+                    <md-icon class="fa fa-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-list>
+            <md-list-item ng-click="app.redirect('/channels')">
+                <md-icon class="fa fa-user"></md-icon>
+                <p>Channels</p>
+            </md-list-item>
+            <md-divider md-inset></md-divider>
+            <md-list-item ng-click="app.redirect('/games')">
+                <md-icon class="fa fa-user"></md-icon>
+                <p>Games</p>
+            </md-list-item>
+            <md-divider md-inset></md-divider>
+            <md-list-item ng-click="app.redirect('/streams')">
+                <md-icon class="fa fa-user"></md-icon>
+                <p>Following</p>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+
+    <div id="view" ng-viewport></div>
+
+    <div id="player" class="player" flex></div>
+
+
+    <!--angular material dependencies-->
+    <script src="lib/js/angular.min.js"></script>
+    <script src="lib/js/angular-animate.min.js"></script>
+    <script src="lib/js/angular-aria.min.js"></script>
+    <script src="lib/js/angular-material.min.js"></script>
+
+    <!--router-->
+    <script src="lib/js/router.es5.min.js"></script>
+
+    <!--kraken components-->
+    <script src="js/kraken.js"></script>
+    <script src="js/app.controller.js"></script>
+    <script src="components/home/home.controller.js"></script>
+</body>
+</html>
