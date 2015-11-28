@@ -1,21 +1,34 @@
 ﻿
 "use strict";
 
-function HomeController($location, $http, $timeout) {
+function HomeController($location, $http, $timeout, api, player) {
 
-    var _this = this;
+    this.$location = $location;
+    this.$http = $http;
+    this.$timeout = $timeout;
+    this.$api = api;
+    this.$player = player;
+
     this.user = {};
 
-    this.authenticate = function () {
-        location.href = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=dpns6ijfs3228myzqg1593j8p27dn8h&redirect_uri=app%3A%2F%2Fkraken%2Findex.html&scope=user_read";
-    };
+    this.$player.createPlayer();
+    this.checkAuth();
+}
 
-    this.redirect = function () {
-        $timeout(function () {
-            $location.path("/streams");
-        }, 500);
-    }
+HomeController.prototype.authenticate = function () {
+    location.href = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=dpns6ijfs3228myzqg1593j8p27dn8h&redirect_uri=app%3A%2F%2Fkraken%2Findex.html&scope=user_read";
+};
 
+HomeController.prototype.redirect = function () {
+    var _this = this;
+    _this.$timeout(function () {
+        _this.$location.path("/streams");
+    }, 500);
+}
+
+HomeController.prototype.checkAuth = function () {
+
+    var _this = this;
     this.user = JSON.parse(localStorage.getItem("user"));
 
     if (this.user) {
@@ -32,7 +45,8 @@ function HomeController($location, $http, $timeout) {
         var access_token = raw_token[1];
 
         //retrieve the user's data
-        $http.get("https://api.twitch.tv/kraken/user?oauth_token=" + access_token).then(function (response) {
+        var user_req = _this.$api.get_user(access_token);
+        user_req.then(function (response) {
 
             //get user data from response
             _this.user = response.data;
@@ -51,7 +65,6 @@ function HomeController($location, $http, $timeout) {
         });
 
     }
+};
 
-}
-
-kraken.controller('HomeController', ["$location", "$http", "$timeout", HomeController]);
+kraken.controller('HomeController', HomeController);
