@@ -20,6 +20,11 @@ HomeController.prototype.authenticate = function () {
 
 HomeController.prototype.redirect = function () {
     var _this = this;
+
+    //create player before redirecting
+    _this.$player.createPlayer();
+
+    //redirect after 500ms
     _this.$timeout(function () {
         _this.$location.path("/streams");
     }, 500);
@@ -55,9 +60,6 @@ HomeController.prototype.checkAuth = function () {
 
             //save user object to local storage
             localStorage.setItem("user", JSON.stringify(_this.user));
-
-            //create player
-            _this.$player.createPlayer();
 
             //redirect to streams
             _this.redirect();
