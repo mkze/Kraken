@@ -33,6 +33,9 @@ StreamsController.prototype.watch = function (index) {
     var _this = this;
     var stream = _this.streams[index];
 
+    var returnButton = document.getElementById("return");
+    returnButton.lastChild.textContent = stream.channel.name;
+
     var token_req = _this.$api.get_live_token(stream.channel.name);
 
     token_req.then(function (response) {

@@ -9,17 +9,28 @@ function AppController($router, user) {
 
 };
 
+AppController.prototype.return = function () {
+    var video = document.getElementById("player");
+    var view = document.querySelector("[ng-viewport]");
+    var returnButton = document.getElementById("return");
+
+    view.hidden = true;
+    video.hidden = false;
+    returnButton.hidden = true;
+}
+
 AppController.prototype.redirect = function (path) {
-    var _this = this;
 
     var video = document.getElementById("player");
     var view = document.querySelector("[ng-viewport]");
+    var returnButton = document.getElementById("return");
 
     view.hidden = false;
     video.hidden = true;
+    returnButton.hidden = false;
 
-    _this.$router.navigate(path);
-    _this.menuOpen = false;
+    this.$router.navigate(path);
+    this.menuOpen = false;
 };
 
 AppController.$routeConfig = [

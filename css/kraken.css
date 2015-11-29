@@ -6,6 +6,10 @@ body {
 }
 
 
+[hidden] {
+    display:none !important;
+}
+
 .player-container {
     height: calc(100% - 64px);
     overflow:hidden;
@@ -44,4 +48,9 @@ body {
 
 .progress {
     margin:0 auto;
+}
+
+.icon-label {
+    position:relative;
+    top:4px;
 }

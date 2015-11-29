@@ -2,6 +2,6 @@
 "use strict";
 
 kraken.factory('user', function () {
-    var user = JSON.parse(localStorage.getItem("user"));
-    return user;
+    this.user = JSON.parse(localStorage.getItem("user"));
+    return this.user;
 });
