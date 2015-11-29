@@ -1,15 +1,16 @@
 ﻿
 "use strict";
 
-function HomeController($location, $http, $timeout, api, player) {
+function HomeController($location, $http, $timeout, $mdToast, api, player, user) {
 
     this.$location = $location;
     this.$http = $http;
     this.$timeout = $timeout;
+    this.$toast = $mdToast;
     this.$api = api;
     this.$player = player;
 
-    this.user = {};
+    this.user = user;
 
     this.checkAuth();
 }
@@ -33,7 +34,6 @@ HomeController.prototype.redirect = function () {
 HomeController.prototype.checkAuth = function () {
 
     var _this = this;
-    this.user = JSON.parse(localStorage.getItem("user"));
 
     if (this.user) {
 
@@ -52,6 +52,9 @@ HomeController.prototype.checkAuth = function () {
         var user_req = _this.$api.get_user(access_token);
         user_req.then(function (response) {
 
+            //indicate success
+            _this.$toast.showSimple("Successfully Authenticated");
+
             //get user data from response
             _this.user = response.data;
 
@@ -65,7 +68,7 @@ HomeController.prototype.checkAuth = function () {
             _this.redirect();
 
         }, function (error) {
-            alert("Failed to retrieve user object");
+            _this.$toast.showSimple("Failed to retrieve user object");
         });
 
     }

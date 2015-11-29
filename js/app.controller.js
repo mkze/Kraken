@@ -1,11 +1,10 @@
 ﻿
 "use strict";
 
-function AppController($router) {
+function AppController($router, user) {
 
     this.$router = $router;
-
-    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = user;
     this.menuOpen = false;
 
 };
@@ -28,4 +27,4 @@ AppController.$routeConfig = [
   { path: '/streams', component: 'streams' }
 ];
 
-kraken.controller("AppController", ["$router", AppController]);
+kraken.controller("AppController", ["$router", "user", AppController]);

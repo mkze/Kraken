@@ -1,14 +1,15 @@
 ﻿
 "use strict";
 
-function StreamsController($http, api, player) {
+function StreamsController($http, $mdToast, api, player, user) {
 
     this.$http = $http;
+    this.$toast = $mdToast;
     this.$api = api;
     this.$player = player;
 
     this.streams = {};
-    this.user = {};
+    this.user = user;
 
     this.loadStreams();
 }
@@ -22,9 +23,8 @@ StreamsController.prototype.loadStreams = function () {
     streams_req.then(function (response) {
 
         _this.streams = response.data.streams;
-
     }, function () {
-        alert("Failed to retrieve streams");
+        _this.$toast.showSimple("Failed to retrieve streams");
     });
 }
 
@@ -45,11 +45,11 @@ StreamsController.prototype.watch = function (index) {
             _this.$player.play(url);
 
         }, function () {
-            alert("Error retrieving stream HLS links");
+            _this.$toast.showSimple("Error retrieving stream HLS links");
         });
 
     }, function () {
-        alert("Error retrieving stream access token");
+        _this.$toast.showSimple("Error retrieving stream access token");
     });
 }
 
