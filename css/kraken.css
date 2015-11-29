@@ -6,8 +6,20 @@ body {
 }
 
 
-.player {
+.player-container {
     height: calc(100% - 64px);
+    overflow:hidden;
+    position:relative;
+    background:#000000;
+}
+
+.player {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    height:100%;
+    width:100%;
 }
 
 .login {
@@ -32,26 +44,4 @@ body {
 
 .progress {
     margin:0 auto;
-}
-
-.wcp-progress-bar {
-    display:none;
-}
-
-.player .wcp-toolbar {
-    background:transparent;
-    height:30px;
-}
-
-.player .wcp-vol-control {
-    top:0;
-    border-right:0;
-}
-
-.player .wcp-vol-bar-full {
-    background-color:rgba(63, 81, 181, 1);
-}
-
-.player .wcp-button {
-    margin-top:0;
 }

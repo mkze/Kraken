@@ -48,7 +48,11 @@
 
     <div id="view" ng-viewport></div>
 
-    <div id="player" class="player" flex hidden></div>
+    <div id="player" class="player-container" hidden>
+        <div id="center" class="player">
+            <canvas id="canvas" class="player"></canvas>
+        </div>
+    </div>
 
 
     <!--angular material dependencies-->
