@@ -1,7 +1,7 @@
 ﻿
 "use strict";
 
-function PlayerService() {
+function PlayerService(state) {
 
     var wcjs = require("wcjs-renderer");
     var container = document.getElementById("player");
@@ -60,10 +60,13 @@ function PlayerService() {
             //play url
             player.play(url);
             
+            // set state
+            state.isplaying = true;
+
             //call resize event handler
             window.onresize();
         }
     }
 }
 
-kraken.factory('player', PlayerService);
+kraken.factory('player', ['state', PlayerService]);

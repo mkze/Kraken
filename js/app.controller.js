@@ -28,6 +28,12 @@ AppController.prototype.togglePlayback = function () {
     } else {
         this.player.play();
     }
+
+    this.state.isplaying = !this.state.isplaying;
+}
+
+AppController.prototype.volumeChanged = function () {
+    this.player.volume = this.state.volume;
 }
 
 AppController.$routeConfig = [
