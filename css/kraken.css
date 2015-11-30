@@ -26,6 +26,11 @@ body {
     width:100%;
 }
 
+.player-toolbar {
+    position:absolute;
+    bottom:0;
+}
+
 .login {
     margin:0 auto;
     width:500px;

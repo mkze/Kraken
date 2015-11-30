@@ -4,6 +4,9 @@
 function ApiService($http) {
 
     return {
+        get_channels: function() {
+            return $http.get("https://api.twitch.tv/kraken/streams");
+        },
         get_user: function(access_token) {
             return $http.get("https://api.twitch.tv/kraken/user?oauth_token=" + access_token);
         },

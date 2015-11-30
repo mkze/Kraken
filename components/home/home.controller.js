@@ -1,14 +1,13 @@
 ﻿
 "use strict";
 
-function HomeController($location, $http, $timeout, $mdToast, api, player, user) {
+function HomeController($location, $http, $timeout, $mdToast, api, user) {
 
     this.$location = $location;
     this.$http = $http;
     this.$timeout = $timeout;
     this.$toast = $mdToast;
     this.$api = api;
-    this.$player = player;
 
     this.user = user;
 
@@ -21,9 +20,6 @@ HomeController.prototype.authenticate = function () {
 
 HomeController.prototype.redirect = function () {
     var _this = this;
-
-    //create player before redirecting
-    _this.$player.createPlayer();
 
     //redirect after 500ms
     _this.$timeout(function () {

@@ -1,41 +1,39 @@
 ﻿
 "use strict";
 
-function AppController($router, user) {
+function AppController($router, user, state, player) {
 
     this.$router = $router;
     this.user = user;
+    this.state = state;
     this.menuOpen = false;
-
+    this.player = player.createPlayer();
 };
 
 AppController.prototype.return = function () {
-    var video = document.getElementById("player");
-    var view = document.querySelector("[ng-viewport]");
-    var returnButton = document.getElementById("return");
-
-    view.hidden = true;
-    video.hidden = false;
-    returnButton.hidden = true;
+    this.state.iswatching = true;
 }
 
 AppController.prototype.redirect = function (path) {
-
-    var video = document.getElementById("player");
-    var view = document.querySelector("[ng-viewport]");
-    var returnButton = document.getElementById("return");
-
-    view.hidden = false;
-    video.hidden = true;
-    returnButton.hidden = false;
+    this.state.iswatching = false;
 
     this.$router.navigate(path);
     this.menuOpen = false;
 };
 
+AppController.prototype.togglePlayback = function () {
+
+    if (this.player.playing) {
+        this.player.pause();
+    } else {
+        this.player.play();
+    }
+}
+
 AppController.$routeConfig = [
   { path: '/index.html', component: 'home' },
-  { path: '/streams', component: 'streams' }
+  { path: '/streams', component: 'streams' },
+  { path: '/channels', component: 'channels' }
 ];
 
-kraken.controller("AppController", ["$router", "user", AppController]);
+kraken.controller("AppController", ["$router", "user", "state", "player", AppController]);

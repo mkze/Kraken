@@ -15,9 +15,9 @@
                 <md-icon class="fa fa-bars fa-2x"></md-icon>
             </md-button>
             <span flex></span>
-            <md-button id="return" ng-click="app.return();" hidden>
+            <md-button ng-show="app.state.stream && !app.state.iswatching" ng-click="app.return();">
                 <md-icon class="fa fa-reply icon-label"></md-icon>
-                <span></span>
+                <span>{{app.state.stream}}</span>
             </md-button>
             <span>{{app.user.display_name}}</span>
         </div>
@@ -50,12 +50,23 @@
         </md-list>
     </md-sidenav>
 
-    <div id="view" ng-viewport></div>
+    <div id="view" ng-viewport ng-show="!app.state.iswatching"></div>
 
-    <div id="player" class="player-container" hidden>
+    <div id="player" class="player-container" ng-show="app.state.iswatching">
         <div id="center" class="player">
             <canvas id="canvas" class="player"></canvas>
         </div>
+        <md-toolbar class="player-toolbar">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="app.togglePlayback()" class="md-icon-button">
+                    <md-icon ng-show="!app.player.playing" class="fa fa-play"></md-icon>
+                    <md-icon ng-show="app.player.playing" class="fa fa-pause"></md-icon>
+                </md-button>
+                <div flex="10">
+                    <md-slider ng-model="app.player.volume" step="1" min="0" max="200" aria-label="volume"></md-slider>
+                </div>
+            </div>
+        </md-toolbar>
     </div>
 
 
@@ -71,10 +82,12 @@
     <!--kraken components-->
     <script src="js/kraken.js"></script>
     <script src="js/api.service.js"></script>
+    <script src="js/state.service.js"></script>
     <script src="js/user.service.js"></script>
     <script src="js/player.service.js"></script>
     <script src="js/app.controller.js"></script>
     <script src="components/home/home.controller.js"></script>
     <script src="components/streams/streams.controller.js"></script>
+    <script src="components/channels/channels.controller.js"></script>
 </body>
 </html>

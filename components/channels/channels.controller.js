@@ -1,35 +1,31 @@
 ﻿
-"use strict";
 
-function StreamsController($http, $mdToast, api, player, user, state) {
+function ChannelsController($mdToast, api, player, state) {
 
-    this.$http = $http;
-    this.$toast = $mdToast;
     this.$api = api;
     this.$player = player;
+    this.$toast = $mdToast;
 
-    this.streams = {};
-    this.user = user;
+    this.streams = [];
     this.state = state;
-
+    
     this.loadStreams();
-}
+};
 
-StreamsController.prototype.loadStreams = function () {
+ChannelsController.prototype.loadStreams = function () {
 
     var _this = this;
-    _this.user = JSON.parse(localStorage.getItem("user"));
+    var channels_req = this.$api.get_channels();
 
-    var streams_req = _this.$api.get_streams(_this.user.access_token);
-    streams_req.then(function (response) {
-
+    channels_req.then(function (response) {
         _this.streams = response.data.streams;
     }, function () {
-        _this.$toast.showSimple("Failed to retrieve streams");
+        _this.$toast.showSimple("Failed to retrieve channels");
     });
-}
 
-StreamsController.prototype.watch = function (index) {
+};
+
+ChannelsController.prototype.watch = function (index) {
 
     var _this = this;
     var stream = this.streams[index];
@@ -37,7 +33,7 @@ StreamsController.prototype.watch = function (index) {
     this.state.stream = stream.channel.name;
     this.state.iswatching = true;
 
-    var token_req = _this.$api.get_live_token(stream.channel.name);
+    var token_req = this.$api.get_live_token(stream.channel.name);
 
     token_req.then(function (response) {
         var access_token = response.data;
@@ -55,7 +51,8 @@ StreamsController.prototype.watch = function (index) {
     }, function () {
         _this.$toast.showSimple("Error retrieving stream access token");
     });
-}
+};
 
 
-kraken.controller('StreamsController', StreamsController);
+
+kraken.controller("ChannelsController", ChannelsController);

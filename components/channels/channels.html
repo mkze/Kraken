@@ -1,0 +1,16 @@
+﻿<md-content flex class="md-padding" style="display:flex;justify-content:center;flex-wrap:wrap;">
+    <md-card ng-repeat="s in channels.streams" style="max-width:350px;display:inline-flex;">
+        <img src="img/twitch_logo.svg" ng-src="{{s.preview.large}}" class="md-card-image" />
+        <md-card-content>
+            <h2 class="md-title">{{s.channel.display_name}}</h2>
+            <span>{{s.channel.game}}</span>
+            <p class="ellipsis" title="{{s.channel.status}}">{{s.channel.status}}</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="channels.watch($index)" class="md-icon-button" aria-title="Watch">
+                <md-icon class="fa fa-arrow-left"></md-icon>
+            </md-button>
+            <md-tooltip>Watch</md-tooltip>
+        </md-card-actions>
+    </md-card>
+</md-content>
