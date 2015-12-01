@@ -31,7 +31,7 @@ HomeController.prototype.checkAuth = function () {
 
     var _this = this;
 
-    if (this.user) {
+    if (this.user.access_token) {
 
         //already authenticated, redirect to streams
         this.redirect();
@@ -52,9 +52,8 @@ HomeController.prototype.checkAuth = function () {
             _this.$toast.showSimple("Successfully Authenticated");
 
             //get user data from response
-            _this.user = response.data;
-
-            //add access token property
+            var user_data = response.data;
+            _this.user.name = user_data.display_name;
             _this.user.access_token = access_token;
 
             //save user object to local storage

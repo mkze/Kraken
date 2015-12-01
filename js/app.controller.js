@@ -1,40 +1,21 @@
 ﻿
 "use strict";
 
-function AppController($router, user, state, player) {
-
+function AppController($router, user) {
     this.$router = $router;
     this.user = user;
-    this.state = state;
     this.menuOpen = false;
-    this.player = player.createPlayer();
 };
 
 AppController.prototype.return = function () {
-    this.state.iswatching = true;
+    this.user.watching = true;
 }
 
 AppController.prototype.redirect = function (path) {
-    this.state.iswatching = false;
-
+    this.user.watching = false;
     this.$router.navigate(path);
     this.menuOpen = false;
 };
-
-AppController.prototype.togglePlayback = function () {
-
-    if (this.player.playing) {
-        this.player.pause();
-    } else {
-        this.player.play();
-    }
-
-    this.state.isplaying = !this.state.isplaying;
-}
-
-AppController.prototype.volumeChanged = function () {
-    this.player.volume = this.state.volume;
-}
 
 AppController.$routeConfig = [
   { path: '/index.html', component: 'home' },
@@ -42,4 +23,4 @@ AppController.$routeConfig = [
   { path: '/channels', component: 'channels' }
 ];
 
-kraken.controller("AppController", ["$router", "user", "state", "player", AppController]);
+kraken.controller("AppController", ["$router", "user", AppController]);

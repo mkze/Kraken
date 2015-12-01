@@ -1,7 +1,7 @@
 ﻿
 "use strict";
 
-function StreamsController($http, $mdToast, api, player, user, state) {
+function StreamsController($http, $mdToast, api, player, user) {
 
     this.$http = $http;
     this.$toast = $mdToast;
@@ -10,7 +10,6 @@ function StreamsController($http, $mdToast, api, player, user, state) {
 
     this.streams = {};
     this.user = user;
-    this.state = state;
 
     this.loadStreams();
 }
@@ -18,7 +17,6 @@ function StreamsController($http, $mdToast, api, player, user, state) {
 StreamsController.prototype.loadStreams = function () {
 
     var _this = this;
-    _this.user = JSON.parse(localStorage.getItem("user"));
 
     var streams_req = _this.$api.get_streams(_this.user.access_token);
     streams_req.then(function (response) {
@@ -34,8 +32,8 @@ StreamsController.prototype.watch = function (index) {
     var _this = this;
     var stream = this.streams[index];
 
-    this.state.stream = stream.channel.name;
-    this.state.iswatching = true;
+    this.user.stream = stream.channel.name;
+    this.user.watching = true;
 
     var token_req = _this.$api.get_live_token(stream.channel.name);
 

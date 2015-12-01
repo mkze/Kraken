@@ -1,12 +1,14 @@
 ﻿
 "use strict";
 
-function PlayerService(state) {
+function PlayerService($timeout) {
 
     var wcjs = require("wcjs-renderer");
     var container = document.getElementById("player");
     var canvasParent = document.getElementById("center");
     var canvas = document.getElementById("canvas");
+    var toolbar = document.getElementById("playertoolbar");
+    var toolbarPromise = null;
 
     return {
         createPlayer: function() {
@@ -30,6 +32,21 @@ function PlayerService(state) {
                     canvasParent.style.width = "100%";
                 }
 
+            };
+
+            // toolbar show/hide handler on player mouse move
+            container.onmousemove = function () {
+                
+                //clear previous timeout
+                $timeout.cancel(toolbarPromise);
+
+                //show toolbar
+                toolbar.style.opacity = 1;
+
+                //set timeout to hide toolbar again
+                toolbarPromise = $timeout(function () {
+                    toolbar.style.opacity = 0;
+                },1500);
             };
 
             // create a mutation observer
@@ -59,9 +76,6 @@ function PlayerService(state) {
 
             //play url
             player.play(url);
-            
-            // set state
-            state.isplaying = true;
 
             //call resize event handler
             window.onresize();
@@ -69,4 +83,4 @@ function PlayerService(state) {
     }
 }
 
-kraken.factory('player', ['state', PlayerService]);
+kraken.factory('player', ["$timeout", PlayerService]);

@@ -15,11 +15,11 @@
                 <md-icon class="fa fa-bars fa-2x"></md-icon>
             </md-button>
             <span flex></span>
-            <md-button ng-show="app.state.stream && !app.state.iswatching" ng-click="app.return();" aria-label="return to stream">
+            <md-button ng-show="app.user.stream && !app.user.watching" ng-click="app.return();" aria-label="return to stream">
                 <md-icon class="fa fa-reply icon-label"></md-icon>
-                <span>{{app.state.stream}}</span>
+                <span>{{app.user.stream}}</span>
             </md-button>
-            <span>{{app.user.display_name}}</span>
+            <span>{{app.user.name}}</span>
         </div>
     </md-toolbar>
     <md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
@@ -50,20 +50,23 @@
         </md-list>
     </md-sidenav>
 
-    <div id="view" ng-viewport ng-show="!app.state.iswatching"></div>
+    <div id="view" ng-viewport ng-show="!app.user.watching"></div>
 
-    <div id="player" class="player-container" ng-show="app.state.iswatching">
+    <div id="player" ng-show="app.user.watching" class="player-container" ng-controller="PlayerController as player">
+        <div ng-show="player.buffering" class="progress-container">
+            <md-progress-circular class="md-warn center progress-icon" md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+        </div>
         <div id="center" class="player">
             <canvas id="canvas" class="player"></canvas>
         </div>
-        <md-toolbar class="player-toolbar">
+        <md-toolbar id="playertoolbar" class="player-toolbar">
             <div class="md-toolbar-tools">
-                <md-button ng-click="app.togglePlayback()" class="md-icon-button" aria-label="toggle playback">
-                    <md-icon ng-show="!app.state.isplaying" class="fa fa-play"></md-icon>
-                    <md-icon ng-show="app.state.isplaying" class="fa fa-pause"></md-icon>
+                <md-button ng-click="player.togglePlayback()" class="md-icon-button" aria-label="toggle playback">
+                    <md-icon ng-show="!player.playing" class="fa fa-play"></md-icon>
+                    <md-icon ng-show="player.playing" class="fa fa-pause"></md-icon>
                 </md-button>
                 <div flex="10">
-                    <md-slider md-discrete ng-model="app.state.volume" ng-change="app.volumeChanged()" step="1" min="0" max="200" aria-label="volume"></md-slider>
+                    <md-slider md-discrete ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
                 </div>
             </div>
         </md-toolbar>
@@ -82,10 +85,10 @@
     <!--kraken components-->
     <script src="js/kraken.js"></script>
     <script src="js/api.service.js"></script>
-    <script src="js/state.service.js"></script>
     <script src="js/user.service.js"></script>
     <script src="js/player.service.js"></script>
     <script src="js/app.controller.js"></script>
+    <script src="js/player.controller.js"></script>
     <script src="components/home/home.controller.js"></script>
     <script src="components/streams/streams.controller.js"></script>
     <script src="components/channels/channels.controller.js"></script>

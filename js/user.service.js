@@ -2,6 +2,16 @@
 "use strict";
 
 kraken.factory('user', function () {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    return this.user;
+
+    var user = JSON.parse(localStorage.getItem("user"));
+
+    var defaultUser = {
+        name: '',
+        access_token: '',
+        watching: false,
+        stream: '',
+        volume: 50
+    };
+
+    return user || defaultUser;
 });

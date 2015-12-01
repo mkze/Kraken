@@ -29,6 +29,8 @@ body {
 .player-toolbar {
     position:absolute;
     bottom:0;
+    opacity:1;
+    transition: all 0.5s ease-in-out;
 }
 
 .login {
@@ -51,11 +53,24 @@ body {
     white-space:nowrap;
 }
 
-.progress {
+.center {
     margin:0 auto;
 }
 
 .icon-label {
     position:relative;
     top:4px;
+}
+
+.progress-container {
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:1;
+    background:rgba(0,0,0,0.6);
+}
+
+.progress-icon {
+    position:relative;
+    top:20%;
 }

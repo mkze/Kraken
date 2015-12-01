@@ -3,7 +3,7 @@
         <md-card-content>
             <md-list>
                 <md-subheader class="md-no-sticky">Live Channels</md-subheader>
-                <md-progress-circular class="progress" md-mode="indeterminate" md-diameter="100" ng-show="!streams.streams.length"></md-progress-circular>
+                <md-progress-circular class="center" md-mode="indeterminate" md-diameter="100" ng-show="!streams.streams.length"></md-progress-circular>
                 <md-list-item ng-click="streams.watch($index)" class="md-3-line" ng-repeat="s in streams.streams">
                     <img ng-src="{{s.channel.logo}}" class="md-avatar" />
                     <div class="md-list-item-text" layout="column">
