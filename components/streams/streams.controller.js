@@ -43,7 +43,7 @@ StreamsController.prototype.watch = function (index) {
 
         hls_req.then(function (response) {
             var M3U_data = response.data;
-            var url = _this.$api.parse_m3u(M3U_data, "chunked");
+            var url = _this.$api.parse_m3u(M3U_data, _this.user.quality);
             _this.$player.play(url);
 
         }, function () {

@@ -5,6 +5,15 @@ body {
     height:100%;
 }
 
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #555;
+    border-radius:10px;
+}
+
 
 [hidden] {
     display:none !important;

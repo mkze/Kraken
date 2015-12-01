@@ -34,6 +34,8 @@ HomeController.prototype.checkAuth = function () {
     if (this.user.access_token) {
 
         //already authenticated, redirect to streams
+        this.user.stream = '';
+        this.user.watching = false;
         this.redirect();
 
     } else if (location.hash) {
@@ -55,6 +57,7 @@ HomeController.prototype.checkAuth = function () {
             var user_data = response.data;
             _this.user.name = user_data.display_name;
             _this.user.access_token = access_token;
+            _this.user.watching = false;
 
             //save user object to local storage
             localStorage.setItem("user", JSON.stringify(_this.user));

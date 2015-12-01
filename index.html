@@ -68,6 +68,15 @@
                 <div flex="10">
                     <md-slider md-discrete ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
                 </div>
+                <span flex></span>
+                <md-input-container>
+                    <md-select ng-model="player.user.quality" md-on-close="player.qualityChanged()" placeholder="{{player.user.quality}}">
+                        <md-option ng-repeat="quality in player.qualities" value="{{quality.raw}}">{{quality.view}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button class="md-icon-button" ng-click="player.toggleFullscreen()">
+                    <md-icon class="fa fa-expand"></md-icon>
+                </md-button>
             </div>
         </md-toolbar>
     </div>

@@ -79,6 +79,17 @@ function PlayerService($timeout) {
 
             //call resize event handler
             window.onresize();
+        },
+
+        toggleFullscreen: function () {
+
+            if (document.webkitCurrentFullScreenElement) {
+                document.webkitCancelFullScreen();
+                window.onresize();
+            } else {
+                container.webkitRequestFullScreen();
+                container.style.width = "100%";
+            }
         }
     }
 }

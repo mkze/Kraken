@@ -10,7 +10,8 @@ kraken.factory('user', function () {
         access_token: '',
         watching: false,
         stream: '',
-        volume: 50
+        volume: 50,
+        quality: 'medium'
     };
 
     return user || defaultUser;
