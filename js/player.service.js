@@ -50,7 +50,7 @@ function PlayerService($timeout) {
             };
 
             //fullscreen on double click
-            container.ondblclick = function () {
+            canvasParent.ondblclick = function () {
                 service.toggleFullscreen();
             };
 

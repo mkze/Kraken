@@ -1,6 +1,6 @@
 ﻿<md-content flex class="md-padding">
     <h2 class="md-display-1 text-center">Top Channels</h2>
-    <p ng-show="channels.viewers" class="text-center">{{channels.viewers | number}} current viewers</p>
+    <p ng-show="channels.count" class="text-center">{{channels.count | number}} live channels</p>
     <div class="cards-container">
         <md-card ng-repeat="stream in channels.streams">
             <md-card-header>
@@ -12,7 +12,7 @@
                     <span class="md-subhead ellipsis">{{stream.channel.game}}</span>
                 </md-card-header-text>
             </md-card-header>
-            <img src="img/twitch_logo.svg" ng-src="{{stream.preview.large}}"class="md-card-image">
+            <img ng-src="{{stream.preview.large}}" class="md-card-image">
             <md-card-content>
                 <p class="ellipsis">{{stream.channel.status}}</p>
             </md-card-content>

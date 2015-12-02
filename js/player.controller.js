@@ -50,9 +50,24 @@ PlayerController.prototype.togglePlayback = function () {
     this.playing = !this.playing;
 };
 
+PlayerController.prototype.toggleMute = function () {
+    if (this.playing) {
+        this.wcjs.toggleMute();
+        if (this.wcjs.mute) {
+            this.volume = 0;
+        } else {
+            this.volume = this.user.volume;
+        }
+    }
+};
+
 PlayerController.prototype.volumeChanged = function () {
+
     this.wcjs.volume = this.volume;
     this.user.volume = this.volume;
+
+    //unfocus the volume slider
+    volumeslider.blur();
 
     //save user object to local storage
     localStorage.setItem("user", JSON.stringify(this.user));

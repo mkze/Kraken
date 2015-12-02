@@ -8,7 +8,7 @@ function ChannelsController($mdToast, api, player, user) {
 
     this.user = user;
     this.streams = [];
-    this.viewers = 0;
+    this.count = 0;
     
     this.loadStreams();
 };
@@ -20,7 +20,7 @@ ChannelsController.prototype.loadStreams = function () {
 
     channels_req.then(function (response) {
         _this.streams = response.data.streams;
-        _this.viewers = response.data._total;
+        _this.count = response.data._total;
     }, function () {
         _this.$toast.showSimple("Failed to retrieve channels");
     });

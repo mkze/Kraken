@@ -60,6 +60,10 @@ body {
     height:45px;
 }
 
+.md-toolbar-tools.small .fa {
+    font-size:20px;
+}
+
 .md-toolbar-tools.small > md-slider {
     top:-8px;
 }
@@ -67,6 +71,11 @@ body {
 .md-toolbar-tools.small > md-input-container {
     top:-5px;
 }
+
+.md-toolbar-tools.small .md-track-ticks {
+    display:none !important;
+}
+
 
 .player-volume {
     width:200px;

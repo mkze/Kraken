@@ -65,8 +65,13 @@
                     <md-icon ng-show="!player.playing" class="fa fa-play"></md-icon>
                     <md-icon ng-show="player.playing" class="fa fa-pause"></md-icon>
                 </md-button>
+                <md-button ng-click="player.toggleMute()" class="md-icon-button" aria-label="toggle mute">
+                    <md-icon ng-show="player.volume > 50" class="fa fa-volume-up"></md-icon>
+                    <md-icon ng-show="player.volume > 0 && player.user.volume < 50" class="fa fa-volume-down"></md-icon>
+                    <md-icon ng-show="player.volume === 0" class="fa fa-volume-off"></md-icon>
+                </md-button>
                 <div class="player-volume">
-                    <md-slider class="small" ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
+                    <md-slider id="volumeslider" md-discrete class="small" ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
                 </div>
                 <span flex></span>
                 <md-input-container>
