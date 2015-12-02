@@ -3,6 +3,7 @@
 html,
 body {
     height:100%;
+    -webkit-app-region:no-drag;
 }
 
 ::-webkit-scrollbar {
@@ -19,11 +20,20 @@ body {
     display:none !important;
 }
 
+.main-toolbar{
+    -webkit-app-region:drag;
+}
+
 .player-container {
     height: calc(100% - 64px);
     overflow:hidden;
     position:relative;
     background:#000000;
+}
+
+.player-fullscreen {
+    height:100%;
+    width:100%;
 }
 
 .player {
@@ -40,6 +50,26 @@ body {
     bottom:0;
     opacity:1;
     transition: all 0.5s ease-in-out;
+}
+
+.player-toolbar.small,
+.md-toolbar-tools.small,
+ md-slider.small {
+    font-size:15px;
+    min-height:45px;
+    height:45px;
+}
+
+.md-toolbar-tools.small > md-slider {
+    top:-8px;
+}
+
+.md-toolbar-tools.small > md-input-container {
+    top:-5px;
+}
+
+.player-volume {
+    width:200px;
 }
 
 .login {
@@ -82,4 +112,14 @@ body {
 .progress-icon {
     position:relative;
     top:20%;
+}
+
+.cards-container {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.cards-container > md-card {
+    width:300px;
 }

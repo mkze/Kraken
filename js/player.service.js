@@ -10,8 +10,8 @@ function PlayerService($timeout) {
     var toolbar = document.getElementById("playertoolbar");
     var toolbarPromise = null;
 
-    return {
-        createPlayer: function() {
+    var service = {
+        createPlayer: function () {
 
             if (global.player)
                 return global.player;
@@ -36,7 +36,7 @@ function PlayerService($timeout) {
 
             // toolbar show/hide handler on player mouse move
             container.onmousemove = function () {
-                
+
                 //clear previous timeout
                 $timeout.cancel(toolbarPromise);
 
@@ -46,7 +46,12 @@ function PlayerService($timeout) {
                 //set timeout to hide toolbar again
                 toolbarPromise = $timeout(function () {
                     toolbar.style.opacity = 0;
-                },1500);
+                }, 1500);
+            };
+
+            //fullscreen on double click
+            container.ondblclick = function () {
+                service.toggleFullscreen();
             };
 
             // create a mutation observer
@@ -61,9 +66,9 @@ function PlayerService($timeout) {
 
             // set the created player as a property in the global object
             global.player = player;
-            
+
             return player;
-            
+
         },
         play: function (url) {
 
@@ -84,14 +89,18 @@ function PlayerService($timeout) {
         toggleFullscreen: function () {
 
             if (document.webkitCurrentFullScreenElement) {
+                container.classList.remove("player-fullscreen");
                 document.webkitCancelFullScreen();
                 window.onresize();
             } else {
+                container.classList.add("player-fullscreen");
                 container.webkitRequestFullScreen();
-                container.style.width = "100%";
+                window.onresize();
             }
         }
-    }
+    };
+
+    return service; 
 }
 
 kraken.factory('player', ["$timeout", PlayerService]);

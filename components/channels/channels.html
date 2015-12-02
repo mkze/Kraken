@@ -1,16 +1,29 @@
-﻿<md-content flex class="md-padding" style="display:flex;justify-content:center;flex-wrap:wrap;">
-    <md-card ng-repeat="s in channels.streams" style="max-width:350px;display:inline-flex;">
-        <img src="img/twitch_logo.svg" ng-src="{{s.preview.large}}" class="md-card-image" />
-        <md-card-content>
-            <h2 class="md-title">{{s.channel.display_name}}</h2>
-            <span>{{s.channel.game}}</span>
-            <p class="ellipsis" title="{{s.channel.status}}">{{s.channel.status}}</p>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
-            <md-button ng-click="channels.watch($index)" class="md-icon-button" aria-title="Watch">
-                <md-icon class="fa fa-arrow-left"></md-icon>
-            </md-button>
-            <md-tooltip>Watch</md-tooltip>
-        </md-card-actions>
-    </md-card>
+﻿<md-content flex class="md-padding">
+    <h2 class="md-display-1 text-center">Top Channels</h2>
+    <p ng-show="channels.viewers" class="text-center">{{channels.viewers | number}} current viewers</p>
+    <div class="cards-container">
+        <md-card ng-repeat="stream in channels.streams">
+            <md-card-header>
+                <md-card-avatar>
+                    <img ng-src={{stream.channel.logo}} />
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">{{stream.channel.display_name}}</span>
+                    <span class="md-subhead ellipsis">{{stream.channel.game}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <img src="img/twitch_logo.svg" ng-src="{{stream.preview.large}}"class="md-card-image">
+            <md-card-content>
+                <p class="ellipsis">{{stream.channel.status}}</p>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-icon-button" aria-label="Follow">
+                    <md-icon class="fa fa-heart"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="channels.watch($index)" aria-label="Watch">
+                    <md-icon class="fa fa-video-camera"></md-icon>
+                </md-button>
+            </md-card-actions>
+        </md-card>
+</div>
 </md-content>

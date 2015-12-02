@@ -1,13 +1,14 @@
 ﻿
 
-function ChannelsController($mdToast, api, player, state) {
+function ChannelsController($mdToast, api, player, user) {
 
     this.$api = api;
     this.$player = player;
     this.$toast = $mdToast;
 
+    this.user = user;
     this.streams = [];
-    this.state = state;
+    this.viewers = 0;
     
     this.loadStreams();
 };
@@ -19,6 +20,7 @@ ChannelsController.prototype.loadStreams = function () {
 
     channels_req.then(function (response) {
         _this.streams = response.data.streams;
+        _this.viewers = response.data._total;
     }, function () {
         _this.$toast.showSimple("Failed to retrieve channels");
     });
@@ -30,8 +32,8 @@ ChannelsController.prototype.watch = function (index) {
     var _this = this;
     var stream = this.streams[index];
 
-    this.state.stream = stream.channel.name;
-    this.state.iswatching = true;
+    this.user.stream = stream.channel.name;
+    this.user.watching = true;
 
     var token_req = this.$api.get_live_token(stream.channel.name);
 

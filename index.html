@@ -9,9 +9,9 @@
 </head>
 <body ng-app="kraken" ng-controller="AppController as app">
 
-    <md-toolbar>
+    <md-toolbar class="main-toolbar">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" aria-label="toggle sidemenu">
+            <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" ng-disabled="!app.user.access_token" aria-label="toggle sidemenu">
                 <md-icon class="fa fa-bars fa-2x"></md-icon>
             </md-button>
             <span flex></span>
@@ -59,14 +59,14 @@
         <div id="center" class="player">
             <canvas id="canvas" class="player"></canvas>
         </div>
-        <md-toolbar id="playertoolbar" class="player-toolbar">
-            <div class="md-toolbar-tools">
+        <md-toolbar id="playertoolbar" class="player-toolbar small">
+            <div class="md-toolbar-tools small">
                 <md-button ng-click="player.togglePlayback()" class="md-icon-button" aria-label="toggle playback">
                     <md-icon ng-show="!player.playing" class="fa fa-play"></md-icon>
                     <md-icon ng-show="player.playing" class="fa fa-pause"></md-icon>
                 </md-button>
-                <div flex="10">
-                    <md-slider md-discrete ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
+                <div class="player-volume">
+                    <md-slider class="small" ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
                 </div>
                 <span flex></span>
                 <md-input-container>
@@ -74,8 +74,9 @@
                         <md-option ng-repeat="quality in player.qualities" value="{{quality.raw}}">{{quality.view}}</md-option>
                     </md-select>
                 </md-input-container>
-                <md-button class="md-icon-button" ng-click="player.toggleFullscreen()">
-                    <md-icon class="fa fa-expand"></md-icon>
+                <md-button class="md-icon-button" ng-click="player.toggleFullscreen()" aria-label="toggle fullscreen">
+                    <md-icon ng-show="!player.fullscreen" class="fa fa-expand"></md-icon>
+                    <md-icon ng-show="player.fullscreen" class="fa fa-compress"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>

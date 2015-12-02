@@ -7,8 +7,8 @@ function HomeController($location, $http, $timeout, $mdToast, api, user) {
     this.$http = $http;
     this.$timeout = $timeout;
     this.$toast = $mdToast;
-    this.$api = api;
 
+    this.api = api;
     this.user = user;
 
     this.checkAuth();
@@ -22,7 +22,7 @@ HomeController.prototype.redirect = function () {
     var _this = this;
 
     //redirect after 500ms
-    _this.$timeout(function () {
+    this.$timeout(function () {
         _this.$location.path("/streams");
     }, 500);
 }
@@ -47,7 +47,7 @@ HomeController.prototype.checkAuth = function () {
         var access_token = raw_token[1];
 
         //retrieve the user's data
-        var user_req = _this.$api.get_user(access_token);
+        var user_req = this.api.get_user(access_token);
         user_req.then(function (response) {
 
             //indicate success

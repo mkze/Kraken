@@ -7,6 +7,7 @@ function PlayerController($scope, $mdToast, $timeout, api, player, user) {
     this.buffering = false;
     this.playing = false;
     this.fullscreen = false;
+    this.quality = user.quality;
     this.$api = api;
     this.$player = player;
     this.wcjs = player.createPlayer();
@@ -59,6 +60,9 @@ PlayerController.prototype.volumeChanged = function () {
 
 PlayerController.prototype.qualityChanged = function () {
 
+    if (this.quality == this.user.quality)
+        return;
+
     var _this = this;
     this.buffering = true;
 
@@ -72,6 +76,7 @@ PlayerController.prototype.qualityChanged = function () {
         hls_req.then(function (response) {
             var M3U_data = response.data;
             var url = _this.$api.parse_m3u(M3U_data, _this.user.quality);
+            _this.quality = _this.user.quality;
             _this.$player.play(url);
 
         }, function () {
@@ -88,6 +93,7 @@ PlayerController.prototype.qualityChanged = function () {
 
 PlayerController.prototype.toggleFullscreen = function () {
     this.$player.toggleFullscreen();
+    this.fullscreen = !this.fullscreen;
 };
 
 kraken.controller("PlayerController",["$scope", "$mdToast", "$timeout", "api", "player", "user", PlayerController]);
