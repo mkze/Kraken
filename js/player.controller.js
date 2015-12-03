@@ -38,7 +38,7 @@ function PlayerController($scope, $mdToast, $timeout, api, player, user) {
         _this.playing = true;
         $timeout(function () {
             _this.wcjs.volume = _this.volume;
-        }, 100);
+        }, 10);
         $scope.$apply();
     };
     
@@ -63,6 +63,11 @@ PlayerController.prototype.toggleMute = function () {
 
 PlayerController.prototype.volumeChanged = function () {
 
+    //unmute if muted
+    if (this.wcjs.mute)
+        this.wcjs.toggleMute();
+
+    //set volume to slider value
     this.wcjs.volume = this.volume;
     this.user.volume = this.volume;
 

@@ -3,6 +3,7 @@
 
 function PlayerService($timeout) {
 
+    var _player;
     var wcjs = require("wcjs-renderer");
     var container = document.getElementById("player");
     var canvasParent = document.getElementById("center");
@@ -13,10 +14,10 @@ function PlayerService($timeout) {
     var service = {
         createPlayer: function () {
 
-            if (global.player)
-                return global.player;
+            if (_player)
+                return _player;
 
-            var player = wcjs.init(canvas);
+            _player = wcjs.init(canvas);
 
             // window resized event handler
             window.onresize = function () {
@@ -64,23 +65,17 @@ function PlayerService($timeout) {
             // observe the canvas for attribute changes (width, height)
             observer.observe(canvas, { attributes: true });
 
-            // set the created player as a property in the global object
-            global.player = player;
-
-            return player;
+            return _player;
 
         },
         play: function (url) {
 
-            //retrieve player object
-            var player = global.player;
-
             //stop any existing playback
-            player.playlist.clear();
-            player.stop();
+            _player.playlist.clear();
+            _player.stop();
 
             //play url
-            player.play(url);
+            _player.play(url);
 
             //call resize event handler
             window.onresize();
