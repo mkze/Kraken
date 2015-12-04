@@ -2,7 +2,7 @@
     <h2 class="md-display-1 text-center">Top Channels</h2>
     <p ng-show="channels.count" class="text-center">{{channels.count | number}} live channels</p>
     <div class="cards-container">
-        <md-card ng-repeat="stream in channels.streams" ng-click="channels.watch($index)">
+        <md-card ng-repeat="stream in channels.streams" ng-click="channels.watch($index)" class="channel-card">
             <md-card-header>
                 <md-card-avatar>
                     <img ng-src={{stream.channel.logo}} />

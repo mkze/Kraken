@@ -130,6 +130,10 @@ body,
     flex-wrap:wrap;
 }
 
-.cards-container > md-card {
+.game-card {
+    width:215px;
+}
+
+.channel-card {
     width:300px;
 }

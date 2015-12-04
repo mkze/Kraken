@@ -7,11 +7,17 @@ function ApiService($http) {
         get_channels: function() {
             return $http.get("https://api.twitch.tv/kraken/streams");
         },
+        get_games: function(limit, offset) {
+            return $http.get("https://api.twitch.tv/kraken/games/top?limit=" + limit + "&offset=" + offset);
+        },
         get_user: function(access_token) {
             return $http.get("https://api.twitch.tv/kraken/user?oauth_token=" + access_token);
         },
         get_streams: function(access_token) {
             return $http.get("https://api.twitch.tv/kraken/streams/followed?oauth_token=" + access_token);
+        },
+        get_streams_by_game: function(game) {
+            return $http.get("https://api.twitch.tv/kraken/streams?game=" + game);
         },
         get_live_token: function (channel) {
             return $http.get("https://api.twitch.tv/api/channels/" + channel + "/access_token");

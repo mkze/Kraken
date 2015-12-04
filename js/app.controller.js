@@ -1,8 +1,8 @@
 ﻿
 "use strict";
 
-function AppController($router, user) {
-    this.$router = $router;
+function AppController($location, user) {
+    this.$location = $location;
     this.user = user;
     this.menuOpen = false;
 };
@@ -13,15 +13,16 @@ AppController.prototype.return = function () {
 
 AppController.prototype.redirect = function (path) {
     this.user.watching = false;
-    this.$router.navigate(path);
+    this.$location.path(path);
     this.menuOpen = false;
 };
 
 AppController.$routeConfig = [
   { path: '/main.html', component: 'home' },
   { path: '/streams', component: 'streams' },
-  { path: '/channels', component: 'channels' }
+  { path: '/channels', component: 'channels' },
+  { path: '/games', component: 'games' }
 ];
 
 
-kraken.controller("AppController", ["$router", "user", AppController]);
+kraken.controller("AppController", ["$location", "user", AppController]);
