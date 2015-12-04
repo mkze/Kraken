@@ -1,0 +1,40 @@
+﻿<md-toolbar class="main-toolbar">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" ng-disabled="!app.user.access_token" aria-label="toggle sidemenu">
+            <md-icon class="fa fa-bars fa-2x"></md-icon>
+        </md-button>
+        <span flex></span>
+        <md-button ng-show="app.user.stream && !app.user.watching" ng-click="app.return();" aria-label="return to stream">
+            <md-icon class="fa fa-reply icon-label"></md-icon>
+            <span>{{app.user.stream}}</span>
+        </md-button>
+        <span>{{app.user.name}}</span>
+    </div>
+</md-toolbar>
+<md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
+    <md-toolbar class="demo-toolbar md-primary">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="app.redirect('/index.html')">Kraken</md-button>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" aria-label="close menu">
+                <md-icon class="fa fa-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-list>
+        <md-list-item ng-click="app.redirect('/channels')">
+            <md-icon class="fa fa-user"></md-icon>
+            <p>Channels</p>
+        </md-list-item>
+        <md-divider md-inset></md-divider>
+        <md-list-item ng-click="app.redirect('/games')">
+            <md-icon class="fa fa-user"></md-icon>
+            <p>Games</p>
+        </md-list-item>
+        <md-divider md-inset></md-divider>
+        <md-list-item ng-click="app.redirect('/streams')">
+            <md-icon class="fa fa-user"></md-icon>
+            <p>Following</p>
+        </md-list-item>
+    </md-list>
+</md-sidenav>

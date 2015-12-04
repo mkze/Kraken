@@ -35,6 +35,7 @@ ChannelsController.prototype.watch = function (index) {
     this.user.stream = stream.channel.name;
     this.user.watching = true;
 
+    this.$player.buffering = true;
     var token_req = this.$api.get_live_token(stream.channel.name);
 
     token_req.then(function (response) {

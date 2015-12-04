@@ -5,55 +5,14 @@ function PlayerService($timeout) {
 
     var _player;
     var wcjs = require("wcjs-renderer");
-    var container = document.getElementById("player");
-    var canvasParent = document.getElementById("center");
-    var canvas = document.getElementById("canvas");
-    var toolbar = document.getElementById("playertoolbar");
-    var toolbarPromise = null;
 
     var service = {
-        createPlayer: function () {
+        createPlayer: function (canvas) {
 
             if (_player)
                 return _player;
 
             _player = wcjs.init(canvas);
-
-            // window resized event handler
-            window.onresize = function () {
-
-                var destAspect = container.clientWidth / container.clientHeight;
-                var sourceAspect = canvas.width / canvas.height;
-
-                if (destAspect > sourceAspect) {
-                    canvasParent.style.height = "100%";
-                    canvasParent.style.width = (((container.clientHeight * sourceAspect) / container.clientWidth) * 100) + "%";
-                } else {
-                    canvasParent.style.height = (((container.clientWidth / sourceAspect) / container.clientHeight) * 100) + "%";
-                    canvasParent.style.width = "100%";
-                }
-
-            };
-
-            // toolbar show/hide handler on player mouse move
-            container.onmousemove = function () {
-
-                //clear previous timeout
-                $timeout.cancel(toolbarPromise);
-
-                //show toolbar
-                toolbar.style.opacity = 1;
-
-                //set timeout to hide toolbar again
-                toolbarPromise = $timeout(function () {
-                    toolbar.style.opacity = 0;
-                }, 1500);
-            };
-
-            //fullscreen on double click
-            canvasParent.ondblclick = function () {
-                service.toggleFullscreen();
-            };
 
             // create a mutation observer
             var observer = new MutationObserver(function (mutations) {
@@ -79,19 +38,6 @@ function PlayerService($timeout) {
 
             //call resize event handler
             window.onresize();
-        },
-
-        toggleFullscreen: function () {
-
-            if (document.webkitCurrentFullScreenElement) {
-                container.classList.remove("player-fullscreen");
-                document.webkitCancelFullScreen();
-                window.onresize();
-            } else {
-                container.classList.add("player-fullscreen");
-                container.webkitRequestFullScreen();
-                window.onresize();
-            }
         }
     };
 

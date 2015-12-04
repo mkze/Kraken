@@ -18,9 +18,10 @@ AppController.prototype.redirect = function (path) {
 };
 
 AppController.$routeConfig = [
-  { path: '/index.html', component: 'home' },
+  { path: '/main.html', component: 'home' },
   { path: '/streams', component: 'streams' },
   { path: '/channels', component: 'channels' }
 ];
+
 
 kraken.controller("AppController", ["$router", "user", AppController]);

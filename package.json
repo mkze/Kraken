@@ -1,6 +1,6 @@
 {
     "name": "kraken",
-    "main": "app://kraken/index.html",
+    "main": "app://kraken/main.html",
     "window": {
         "position": "center",
         "toolbar": true,

@@ -10,7 +10,8 @@ function PlayerController($scope, $mdToast, $timeout, api, player, user) {
     this.quality = user.quality;
     this.$api = api;
     this.$player = player;
-    this.wcjs = player.createPlayer();
+    this.$timeout = $timeout;
+
     this.user = user;
     this.volume = user.volume || 50;
 
@@ -23,6 +24,17 @@ function PlayerController($scope, $mdToast, $timeout, api, player, user) {
         { raw: 'chunked', view: 'Source' }
     ];
 
+    this.createPlayer($scope);
+};
+
+PlayerController.prototype.createPlayer = function ($scope) {
+
+    var _this = this;
+    var toolbarPromise;
+
+    this.wcjs = this.$player.createPlayer(canvas);
+
+    //video events
     this.wcjs.onOpening = function () {
         _this.buffering = true;
         $scope.$apply();
@@ -36,12 +48,48 @@ function PlayerController($scope, $mdToast, $timeout, api, player, user) {
     this.wcjs.onPlaying = function () {
         _this.buffering = false;
         _this.playing = true;
-        $timeout(function () {
+        _this.$timeout(function () {
             _this.wcjs.volume = _this.volume;
         }, 10);
         $scope.$apply();
     };
-    
+
+    // window resized event handler
+    window.onresize = function () {
+
+        var destAspect = container.clientWidth / container.clientHeight;
+        var sourceAspect = canvas.width / canvas.height;
+
+        if (destAspect > sourceAspect) {
+            canvasParent.style.height = "100%";
+            canvasParent.style.width = (((container.clientHeight * sourceAspect) / container.clientWidth) * 100) + "%";
+        } else {
+            canvasParent.style.height = (((container.clientWidth / sourceAspect) / container.clientHeight) * 100) + "%";
+            canvasParent.style.width = "100%";
+        }
+
+    };
+
+    // toolbar show/hide handler on player mouse move
+    container.onmousemove = function () {
+
+        //clear previous timeout
+        _this.$timeout.cancel(toolbarPromise);
+
+        //show toolbar
+        playertoolbar.style.opacity = 1;
+
+        //set timeout to hide toolbar again
+        toolbarPromise = _this.$timeout(function () {
+            playertoolbar.style.opacity = 0;
+        }, 1500);
+    };
+
+    //fullscreen on double click
+    canvasParent.ondblclick = function () {
+        _this.toggleFullscreen();
+        $scope.$apply();
+    };
 
 };
 
@@ -112,8 +160,18 @@ PlayerController.prototype.qualityChanged = function () {
 };
 
 PlayerController.prototype.toggleFullscreen = function () {
-    this.$player.toggleFullscreen();
+
+    if (document.webkitCurrentFullScreenElement) {
+        container.classList.remove("player-fullscreen");
+        document.webkitCancelFullScreen();
+        window.onresize();
+    } else {
+        container.classList.add("player-fullscreen");
+        container.webkitRequestFullScreen();
+        window.onresize();
+    }
+
     this.fullscreen = !this.fullscreen;
 };
 
-kraken.controller("PlayerController",["$scope", "$mdToast", "$timeout", "api", "player", "user", PlayerController]);
+kraken.controller("PlayerController", ["$scope", "$mdToast", "$timeout", "api", "player", "user", PlayerController]);

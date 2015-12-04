@@ -15,7 +15,7 @@ function HomeController($location, $http, $timeout, $mdToast, api, user) {
 }
 
 HomeController.prototype.authenticate = function () {
-    location.href = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=dpns6ijfs3228myzqg1593j8p27dn8h&redirect_uri=app%3A%2F%2Fkraken%2Findex.html&scope=user_read";
+    location.href = "https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=dpns6ijfs3228myzqg1593j8p27dn8h&redirect_uri=app%3A%2F%2Fkraken%2Fmain.html&scope=user_read";
 };
 
 HomeController.prototype.redirect = function () {
