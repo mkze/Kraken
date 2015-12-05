@@ -21,8 +21,16 @@ body,
     display:none !important;
 }
 
-.main-toolbar{
+.main-toolbar {
     -webkit-app-region:drag;
+}
+
+button {
+    -webkit-app-region:no-drag;
+}
+
+.toolbar-name {
+    margin-right:105px;
 }
 
 .player-container {
@@ -136,4 +144,27 @@ body,
 
 .channel-card {
     width:300px;
+}
+
+.main-toolbar button.md-fab {
+    line-height:40px;
+    width:35px;
+    height:0;
+    margin:0 !important;
+    padding:0;
+}
+
+.minimize-button {
+    position:absolute;
+    right:70px;
+}
+
+.maximize-button {
+    position:absolute;
+    right:35px;
+}
+
+.close-button {
+    position:absolute;
+    right:0;
 }

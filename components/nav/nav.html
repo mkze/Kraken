@@ -1,4 +1,4 @@
-﻿<md-toolbar class="main-toolbar">
+﻿<md-toolbar class="main-toolbar" ng-controller="NavController as nav">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" ng-disabled="!app.user.access_token" aria-label="toggle sidemenu">
             <md-icon class="fa fa-bars fa-2x"></md-icon>
@@ -8,7 +8,19 @@
             <md-icon class="fa fa-reply icon-label"></md-icon>
             <span>{{app.user.stream}}</span>
         </md-button>
-        <span>{{app.user.name}}</span>
+        <span class="toolbar-name">{{app.user.name}}</span>
+        <md-button id="minimize" class="md-fab minimize-button" aria-label="minimize">
+            <i class="fa fa-minus window-toggle"></i>
+        </md-button>
+        <md-button id="maximize" ng-show="!nav.maximized" class="md-fab maximize-button" aria-label="maximize">
+            <i class="fa fa-square-o"></i>
+        </md-button>
+        <md-button id="unmaximize" ng-show="nav.maximized" class="md-fab maximize-button" aria-label="unmaximize">
+            <i class="fa fa-clone"></i>
+        </md-button>
+        <md-button id="close" class="md-fab close-button" aria-label="close">
+            <md-icon class="fa fa-close"></md-icon>
+        </md-button>
     </div>
 </md-toolbar>
 <md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
