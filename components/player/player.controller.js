@@ -24,15 +24,15 @@ function PlayerController($scope, $mdToast, $timeout, api, player, user) {
         { raw: 'chunked', view: 'Source' }
     ];
 
-    this.createPlayer($scope);
+    this.initialize($scope);
 };
 
-PlayerController.prototype.createPlayer = function ($scope) {
+PlayerController.prototype.initialize = function ($scope) {
 
     var _this = this;
     var toolbarPromise;
 
-    this.wcjs = this.$player.createPlayer(canvas);
+    this.wcjs = this.$player.createPlayer(canvas, this.user.buffer);
 
     //video events
     this.wcjs.onOpening = function () {

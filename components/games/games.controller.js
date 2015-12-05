@@ -34,8 +34,9 @@ GamesController.prototype.select = function (index) {
 
     var _this = this;
     var game = this.titles[index];
+    var name = encodeURIComponent(game.game.name);
 
-    var streamsPromise = this.api.get_streams_by_game(game.game.name);
+    var streamsPromise = this.api.get_streams_by_game(name);
     streamsPromise.then(function (response) {
         _this.streams = response.data.streams;
     }, function () {

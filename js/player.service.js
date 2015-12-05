@@ -7,12 +7,12 @@ function PlayerService($timeout) {
     var wcjs = require("wcjs-renderer");
 
     var service = {
-        createPlayer: function (canvas) {
+        createPlayer: function (canvas, buffer) {
 
             if (_player)
                 return _player;
 
-            _player = wcjs.init(canvas);
+            _player = wcjs.init(canvas, ["--network-caching=" + buffer]);
 
             // create a mutation observer
             var observer = new MutationObserver(function (mutations) {
