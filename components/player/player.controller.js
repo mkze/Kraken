@@ -163,10 +163,12 @@ PlayerController.prototype.toggleFullscreen = function () {
 
     if (document.webkitCurrentFullScreenElement) {
         container.classList.remove("player-fullscreen");
+        canvasParent.classList.remove("player-fullscreen");
         document.webkitCancelFullScreen();
         window.onresize();
     } else {
         container.classList.add("player-fullscreen");
+        canvasParent.classList.add("player-fullscreen");
         container.webkitRequestFullScreen();
         window.onresize();
     }
