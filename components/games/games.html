@@ -1,6 +1,7 @@
 ﻿<md-content flex class="md-padding">
     <h2 class="md-display-1 text-center">Top Games</h2>
     <md-button ng-show="games.streams.length" ng-click="games.streams = []">Return</md-button>
+    <md-progress-circular class="center" md-mode="indeterminate" md-diameter="100" ng-show="!games.titles.length"></md-progress-circular>
     <div class="cards-container" ng-show="!games.streams.length">
         <md-card ng-repeat="game in games.titles" ng-click="games.select($index)" class="game-card">
             <md-card-header>

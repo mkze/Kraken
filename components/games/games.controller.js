@@ -19,7 +19,7 @@ function GamesController ($mdToast, api, user, player) {
 GamesController.prototype.loadGames = function () {
 
     var _this = this;
-    var gamesPromise = this.api.get_games(50, 0);
+    var gamesPromise = this.api.get_games(25, 0);
 
     gamesPromise.then(function (response) {
         _this.titles = response.data.top;

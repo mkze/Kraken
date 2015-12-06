@@ -1,8 +1,7 @@
 ﻿
 
 html,
-body, 
-.full {
+body {
     height:100%;
     -webkit-app-region:no-drag;
 }
@@ -17,10 +16,6 @@ body,
 }
 
 
-[hidden] {
-    display:none !important;
-}
-
 .main-toolbar {
     -webkit-app-region:drag;
 }
@@ -29,15 +24,15 @@ button {
     -webkit-app-region:no-drag;
 }
 
-.toolbar-name {
-    margin-right:105px;
-}
-
-.player-container {
+.player-container-outer {
     height: calc(100% - 64px);
     overflow:hidden;
     position:relative;
-    background:#000000;
+}
+
+.player-container-inner {
+    height:100%;
+    background:#000;
 }
 
 .player-fullscreen {
@@ -146,22 +141,19 @@ button {
     width:300px;
 }
 
-.main-toolbar button.md-fab {
-    line-height:40px;
-    width:35px;
-    height:0;
+.main-toolbar button.md-icon-button {
     margin:0 !important;
-    padding:0;
 }
 
 .minimize-button {
     position:absolute;
-    right:70px;
+    right:50px;
 }
 
 .maximize-button {
     position:absolute;
-    right:35px;
+    right:25px;
+    top:-3px;
 }
 
 .close-button {

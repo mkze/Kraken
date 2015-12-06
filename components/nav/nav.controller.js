@@ -28,21 +28,29 @@ NavController.prototype.bindHandlers = function ($scope) {
     var maximize = document.getElementById("maximize");
     maximize.onclick = function () {
         win.maximize();
-        _this.maximized = true;
-        $scope.$apply();
     };
 
     var unmaximize = document.getElementById("unmaximize");
     unmaximize.onclick = function () {
         win.unmaximize();
-        _this.maximized = false;
-        $scope.$apply();
     };
 
     var close = document.getElementById("close");
     close.onclick = function () {
         win.close();
     };
+
+    //maximize event handler
+    win.on('maximize', function () {
+        _this.maximized = true;
+        $scope.$apply();
+    });
+
+    //unmaximize event handler
+    win.on('unmaximize', function () {
+        _this.maximized = false;
+        $scope.$apply();
+    });
 
 };
 
